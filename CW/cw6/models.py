@@ -13,5 +13,4 @@ class Days (models.Model):
 
     #def __str__(self):
     #    return self.date
-
 # Create your models here.

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<p>"TEMPLATES !!!"</p>
+
+<div>
+    {{dd}}
+</div>
+
+
+<div>
+   {{form}}
+</div>
+<div>
+    {% for dd2 in dd %}
+    {{ dd2 }}
+{% endfor %}
+
+</div>
+
+<div>
+    {% for dd4 in d1 %}
+    <div>
+        <p>date: {{ date }}</p>
+        <h1><a href="">{{ d1 }}</a></h1>
+        <p>{{d1}}</p>
+    </div>
+{% endfor %}
+</div>
+
+<div>
+    {% for dd3 in dd %}
+    <div>
+        <p>date: {{ date }}</p>
+        <h1><a href="">{{ d1 }}</a></h1>
+        <p>{{d2}}</p>
+    </div>
+{% endfor %}
+</div>
+
+</html>
