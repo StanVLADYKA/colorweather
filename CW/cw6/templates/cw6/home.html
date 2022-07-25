@@ -6,6 +6,16 @@
 </head>
 <body>
 <p>"TEMPLATES !!!"</p>
+{% for temp_days in temp %}
+    <h1>{{ temp_days.date }}</h1>
+    <h2>{{ temp_days.d1 }}</h2>
+    <h2>{{ temp_days.d2 }}</h2>
+    <h2>{{ temp_days.d3 }}</h2>
+    <h2>{{ temp_days.d4 }}</h2>
+    <h2>{{ temp_days.d5 }}</h2>
+    <h2>{{ temp_days.d6 }}</h2>
+{% endfor %}
+
 
 <div>
     {{dd}}
@@ -13,7 +23,7 @@
 
 
 <div>
-   {{form}}
+   {{dd}}
 </div>
 <div>
     {% for dd2 in dd %}
@@ -23,12 +33,8 @@
 </div>
 
 <div>
-    {% for dd4 in d1 %}
-    <div>
-        <p>date: {{ date }}</p>
-        <h1><a href="">{{ d1 }}</a></h1>
-        <p>{{d1}}</p>
-    </div>
+    {% for dd4 in dd %}
+    <p>{{dd4}}</p>
 {% endfor %}
 </div>
 

@@ -12,5 +12,6 @@ class Days (models.Model):
     d7 = models.IntegerField(blank=True,null=True)
 
     #def __str__(self):
-    #    return self.date
+    #    return self.day
+
 # Create your models here.

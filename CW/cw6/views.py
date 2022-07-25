@@ -17,15 +17,10 @@ from .models import Days
 
 
 def give_temp(request):
-    #d=input("enter id days")
     #dd = Days.objects.all()
-    dd = Days.objects.filter(date='2022-07-24')
-    d1 = Days.objects.all()
-    #dd = Days.objects.all()
-    #dd = Days.objects.filter(id='1')
-    #print(dd)
-    return render(request, 'cw6/home.html', {'dd' : dd})
-                  #{'d1' : d1}
+    temp = Days.objects.filter(date='2022-07-27')
+    return render(request, 'cw6/home.html', {"temp": temp})
+
 
 """select * from cw6_days;"""
 #def test(request):
