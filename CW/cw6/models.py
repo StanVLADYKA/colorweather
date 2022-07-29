@@ -29,7 +29,8 @@ class Day(models.Model):
         d4 = f'd4: {self.d4}'
         d5 = f'd5: {self.d5}'
         d6 = f'd6: {self.d6}'
-        return f'{date},{d1},{d2},{d3},{d4},{d5},{d6}'
+        return f'{date}'
+#        return f'{date},{d1},{d2},{d3},{d4},{d5},{d6}'
         #return (self)
 
 
