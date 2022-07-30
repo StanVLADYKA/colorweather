@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.urls import include
 
+
 urlpatterns = [
     path ('', views.give_temp, name = 'give_temp'),
 #    path ('index/', views.give_temp, name = 'give_temp2'),

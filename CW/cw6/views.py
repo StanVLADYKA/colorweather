@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from .models import Days, Day
 from .forms import SelectDay
+from datetime import date
 
 
-date = '2022-07-27'
+
+#date = '2022-07-27'
+sysdate = date.today()
+print(date.today())
 
 range={40:'cw6/img/1.jpg',39:'cw6/img/2.jpg',38:'cw6/img/2.jpg',37:'cw6/img/2.jpg',36:'cw6/img/2.jpg',
     35:'cw6/img/2.jpg',34:'cw6/img/2.jpg',33:'cw6/img/2.jpg',32:'cw6/img/2.jpg',31:'cw6/img/2.jpg',
@@ -22,10 +26,44 @@ range={40:'cw6/img/1.jpg',39:'cw6/img/2.jpg',38:'cw6/img/2.jpg',37:'cw6/img/2.jp
     -30:'cw6/img/14.jpg',-31:'cw6/img/14.jpg',-32:'cw6/img/14.jpg',-33:'cw6/img/14.jpg',
 }
 
+def test(request):
+    if request.method == "POST":
+        newdate = SelectDay(request.POST)
+        print(newdate, "форма с данными")
+        if newdate.is_valid():
+            postdate=newdate.cleaned_data
+            sdate=postdate['date']
+            sdate=str(sdate)
+#            date = sdate[5:15]
+#            sdate-date
+#           sdate=sdate[5:15]
+            print("TEST !!!!!!!!!!!!!!!!!")
+            print(sdate, 'sdate in POST')
+            print(date, 'date in POST')
+            return sdate[5:15]
+            #date=sdate
+            #give_temp(request)
+            #give_temp(date)
+
+
+    else:
+        return sysdate
+  #      print('форма пустая',date)
+
+
 def conv_link(tt):
     return range[tt]
 
 def give_temp(request):
+    date = sysdate
+#    date = '2022-07-27'
+    print(date, "1 date in def give_temp)")
+    #print(sdate, "sdate in def give_temp)")
+    test(request)
+    date=test(request)
+    #date = sdate
+    print(date,'after test')
+
     temp = Day.objects.get(date=date)
     temp1 = int(temp.d1)
     temp2 = int(temp.d2)
@@ -43,15 +81,18 @@ def give_temp(request):
 
     selday = SelectDay()
 
+
 #    if request.method == "POST":
 #        newdate = SelectDay(request.POST)
 #        print(newdate)
 #    else:
 #        pass
-    testday=test(request)
+#    testday=test(request)
 
     return render(request, 'cw6/index.html',
-                  {"temp": temp, "temp1": temp1,"temp2": temp2,
+                  {
+                      #"temp": temp,
+                      "temp1": temp1,"temp2": temp2,
                     "temp3": temp3,"temp4": temp4, "temp5": temp5,
                     "temp6": temp6, "img1": img1,"img2": img2, "img3": img3,
                    "img4": img4,"img5": img5,"img6": img6,
@@ -59,14 +100,10 @@ def give_temp(request):
 #                   "newdate": newdate
                    })
 
-def test(request):
-    if request.method == "POST":
-        newdate = SelectDay(request.POST)
-        print(newdate, "форма с данными",date)
-        if newdate.is_valid():
-            print(newdate.cleaned_data)
-    else:
-        print('форма пустая',date)
+
+#def manager(request):
+
+
 
 #    p4="test44"
 #    form3 = SelectDay
@@ -80,3 +117,5 @@ def test(request):
 #def select_day(request):
 #    sdate = SelectDay
 #    return render (request, 'cw6/index.html', {"sdate": sdate})
+
+
