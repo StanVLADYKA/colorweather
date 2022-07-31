@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>color weather 6</title>
+<link rel="stylesheet" href="{% static 'cw6/styles.css' %}">
+</head>
+<body>
+<p class="p1">
+ Maximum daily temperatures for 6 days in Minsk
+</p>
+
+<p>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ selday.as_p }}
+        <button type = 'submit'> ok</button>
+    </form>
+</p>
+{{ newdate }}
+<p>
+
+</p>
+<img src="{% static img1 %}" width="120" height="530">
+<img src="{% static img2 %}" width="120" height="530">
+<img src="{% static img3 %}" width="120" height="530">
+<img src="{% static img4 %}" width="120" height="530">
+<img src="{% static img5 %}" width="120" height="530">
+<img src="{% static img6 %}" width="120" height="530">
+
+
+<p class="p2">
+  
+   &ensp;&ensp;{{temp1}}&ensp;&ensp;&ensp;&ensp; {{temp2}}
+   &ensp;&ensp;&ensp;&ensp;{{temp3}}&ensp;&ensp;&ensp;&ensp;
+   {{temp4}}&ensp;&ensp;&ensp;&ensp;&ensp;{{temp5}}&ensp;&ensp;&ensp;&ensp;{{temp6}}
+</p>  
+
+
+</body>
+</html>
