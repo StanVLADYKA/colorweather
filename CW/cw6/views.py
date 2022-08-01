@@ -2,10 +2,9 @@ from django.shortcuts import render
 from .models import Days, Day
 from .forms import SelectDay
 from datetime import date
+import requests
 
 
-
-#date = '2022-07-27'
 sysdate = date.today()
 print(date.today())
 
@@ -26,43 +25,43 @@ range={40:'cw6/img/1.jpg',39:'cw6/img/2.jpg',38:'cw6/img/2.jpg',37:'cw6/img/2.jp
     -30:'cw6/img/14.jpg',-31:'cw6/img/14.jpg',-32:'cw6/img/14.jpg',-33:'cw6/img/14.jpg',
 }
 
-def test(request):
+def setday(request):               #  функция перерасчета отображения при выборе новой даты
     if request.method == "POST":
         newdate = SelectDay(request.POST)
-        print(newdate, "форма с данными")
         if newdate.is_valid():
             postdate=newdate.cleaned_data
             sdate=postdate['date']
             sdate=str(sdate)
-#            date = sdate[5:15]
-#            sdate-date
-#           sdate=sdate[5:15]
-            print("TEST !!!!!!!!!!!!!!!!!")
-            print(sdate, 'sdate in POST')
-            print(date, 'date in POST')
             return sdate[5:15]
-            #date=sdate
-            #give_temp(request)
-            #give_temp(date)
-
-
     else:
         return sysdate
-  #      print('форма пустая',date)
 
 
-def conv_link(tt):
+def createforecast(sysdate):   # функция создания экземпляра модели Day если её нет на текущую дату
+    try:                       # используется запрос данных на 8 дней из ресурса : penweathermap.org
+        info = Day.objects.get(date=sysdate)
+    except:
+        url = 'https://api.openweathermap.org/data/3.0/onecall?lat=53.94&lon=27.59&units=metric&exclude=current,minutely,hourly,alerts&appid=3fa7183f2bd29d62f19b1de12be26a15'
+        res = requests.get(url).json()
+        res1 = res['daily']
+        print("ALARM!!!")
+        listtemp = [str(sysdate)]
+        for key in res1:
+            listtemp.append(round(key['temp']['max']))
+        Day.objects.create(date=listtemp[0], d1=listtemp[1], d2=listtemp[2], d3=listtemp[3],
+                           d4=listtemp[4], d5=listtemp[5], d6=listtemp[6], d7=listtemp[7])
+    else:
+        pass
+
+
+def conv_link(tt):  # функция возврата ссылки на картинку по данным температуры
     return range[tt]
 
-def give_temp(request):
-    date = sysdate
-#    date = '2022-07-27'
-    print(date, "1 date in def give_temp)")
-    #print(sdate, "sdate in def give_temp)")
-    test(request)
-    date=test(request)
-    #date = sdate
-    print(date,'after test')
+def give_temp(request): # основная функция, запускается из домашней страницы
+
+    createforecast(sysdate) # вызывает функцию, если нет прогноза от текущей даты в модели, записываес в Day
+
+    date=setday(request)  # при выборе на сайте новой даты, вызываес функцию с перерисовкой
 
     temp = Day.objects.get(date=date)
     temp1 = int(temp.d1)
@@ -79,43 +78,14 @@ def give_temp(request):
     img5 = conv_link(temp5)
     img6 = conv_link(temp6)
 
-    selday = SelectDay()
+    selday = SelectDay()  # ссылка на форму для выбора даты (формат odelChoiceField)
 
-
-#    if request.method == "POST":
-#        newdate = SelectDay(request.POST)
-#        print(newdate)
-#    else:
-#        pass
-#    testday=test(request)
 
     return render(request, 'cw6/index.html',
                   {
-                      #"temp": temp,
-                      "temp1": temp1,"temp2": temp2,
-                    "temp3": temp3,"temp4": temp4, "temp5": temp5,
-                    "temp6": temp6, "img1": img1,"img2": img2, "img3": img3,
-                   "img4": img4,"img5": img5,"img6": img6,
-                   "selday": selday,
-#                   "newdate": newdate
+                      "temp1": temp1,"temp2": temp2,"temp3": temp3,
+                      "temp4": temp4, "temp5": temp5, "temp6": temp6,
+                      "img1": img1,"img2": img2, "img3": img3, "img4": img4,
+                      "img5": img5,"img6": img6, "selday": selday, "date": str(date)
                    })
-
-
-#def manager(request):
-
-
-
-#    p4="test44"
-#    form3 = SelectDay
-#    return render(request, 'cw6/templ.html', {'p': p4, 'form3':form3})
-
-#def test2(request):
-#    p2="test22"
-#    form2 = TestDay()
-#    return render(request, 'cw6/templ2.html', {'p': p2, 'form2':form2})
-
-#def select_day(request):
-#    sdate = SelectDay
-#    return render (request, 'cw6/index.html', {"sdate": sdate})
-
 
