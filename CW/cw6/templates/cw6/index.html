@@ -8,12 +8,12 @@
 </head>
 <body>
 <p class="p1">
- Maximum daily temperatures for 6 days in Minsk (from date {{ date }})
+ Maximum daily temperatures for 7 days in Minsk (from date {{ date }})
 </p>
 
-
 <p>
-<form action="" method="post">
+<form
+      action="" method="post">
     {% csrf_token %}
     {{ selday.as_p }}
         <button type = 'submit'> ok</button>
@@ -29,14 +29,21 @@
 <img src="{% static img4 %}" width="120" height="530">
 <img src="{% static img5 %}" width="120" height="530">
 <img src="{% static img6 %}" width="120" height="530">
+<img src="{% static img7 %}" width="120" height="530">
 
+<table border="0" width="865" height="160" style="font-size:2.5em">
 
-<p class="p2">
-  
-   &ensp;&ensp;{{temp1}}&ensp;&ensp;&ensp;&ensp; {{temp2}}
-   &ensp;&ensp;&ensp;&ensp;{{temp3}}&ensp;&ensp;&ensp;&ensp;
-   {{temp4}}&ensp;&ensp;&ensp;&ensp;&ensp;{{temp5}}&ensp;&ensp;&ensp;&ensp;{{temp6}}
-</p>  
+    <tr>
+		<th>{{temp1}}</th>
+		<th>{{temp2}}</th>
+		<th>{{temp3}}</th>
+        <th>{{temp4}}</th>
+        <th>{{temp5}}</th>
+        <th>{{temp6}}</th>
+        <th>{{temp7}}</th>
+	</tr>
+</table>
+
 
 
 </body>

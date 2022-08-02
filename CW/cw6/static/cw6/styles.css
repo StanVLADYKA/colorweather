@@ -6,10 +6,7 @@
 	font-weight: bold
 }
 
-.p2 {
-	color: black;
-	font-size: 37px;
-	font-family: Arial;
-	font-weight: bold
+form
+{
+    float: right;
 }
-

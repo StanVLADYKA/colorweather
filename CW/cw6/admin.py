@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Days,Day
+from .models import Day
 
-admin.site.register(Days)
 admin.site.register(Day)
 
 

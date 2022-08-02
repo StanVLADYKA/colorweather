@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Days, Day
+from .models import Day
 from .forms import SelectDay
 from datetime import date
 import requests
@@ -44,7 +44,7 @@ def createforecast(sysdate):   # функция создания экземпл�
         url = 'https://api.openweathermap.org/data/3.0/onecall?lat=53.94&lon=27.59&units=metric&exclude=current,minutely,hourly,alerts&appid=3fa7183f2bd29d62f19b1de12be26a15'
         res = requests.get(url).json()
         res1 = res['daily']
-        print("ALARM!!!")
+        print("ALARM!!! до 1000 запросов в день бесплатно")
         listtemp = [str(sysdate)]
         for key in res1:
             listtemp.append(round(key['temp']['max']))
@@ -70,6 +70,7 @@ def give_temp(request): # основная функция, запускаетс�
     temp4 = int(temp.d4)
     temp5 = int(temp.d5)
     temp6 = int(temp.d6)
+    temp7 = int(temp.d7)
 
     img1 = conv_link(temp1)
     img2 = conv_link(temp2)
@@ -77,15 +78,16 @@ def give_temp(request): # основная функция, запускаетс�
     img4 = conv_link(temp4)
     img5 = conv_link(temp5)
     img6 = conv_link(temp6)
+    img7 = conv_link(temp7)
 
     selday = SelectDay()  # ссылка на форму для выбора даты (формат odelChoiceField)
 
-
     return render(request, 'cw6/index.html',
                   {
-                      "temp1": temp1,"temp2": temp2,"temp3": temp3,
-                      "temp4": temp4, "temp5": temp5, "temp6": temp6,
+                      "temp1": temp1,"temp2": temp2,"temp3": temp3,"temp4": temp4,
+                      "temp5": temp5, "temp6": temp6, "temp7": temp7,
                       "img1": img1,"img2": img2, "img3": img3, "img4": img4,
-                      "img5": img5,"img6": img6, "selday": selday, "date": str(date)
+                      "img5": img5,"img6": img6, "img7": img7, "selday": selday,
+                      "date": str(date)
                    })
 
